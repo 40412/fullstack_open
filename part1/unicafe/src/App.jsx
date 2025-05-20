@@ -8,9 +8,9 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => setGood(good + 1)}>good</button>
-      <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setBad(bad + 1)}>bad</button>
+      <Button setter={setGood} title="good" />
+      <Button setter={setNeutral} title="neutral" />
+      <Button setter={setBad} title="bad" />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
@@ -25,15 +25,31 @@ const Statistics = ({ good, neutral, bad }) => {
         <p>No feedback given</p>
       ) : (
         <>
-          <p>good {good}</p>
-          <p>neutral {neutral}</p>
-          <p>bad {bad}</p>
-          <p>all {all}</p>
-          <p>average {(good + bad * -1) / all}</p>
-          <p>positive {(good / all) * 100} %</p>
+          <StatisticLine text={"good"} value={good} />
+          <StatisticLine text={"neutral"} value={neutral} />
+          <StatisticLine text={"bad"} value={bad} />
+          <StatisticLine text={"all"} value={all} />
+          <StatisticLine text={"average"} value={(good + bad * -1) / all} />
+          <StatisticLine text={"positive"} value={(good / all) * 100 + " %"} />
         </>
       )}
     </>
+  );
+};
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <p>
+      {text} {value}
+    </p>
+  );
+};
+
+const Button = (props) => {
+  return (
+    <button onClick={() => props.setter((prev) => prev + 1)}>
+      {props.title}
+    </button>
   );
 };
 
