@@ -54,7 +54,7 @@ const App = () => {
       setPersons(persons.concat(saved));
       setNewName("");
       setNewNumber("");
-      showMessage(`Added ${saved.name}`);
+      showMessage(`Added ${saved.name}`, "success");
     } catch (err) {
       console.error("Failed to save");
     }
@@ -66,12 +66,12 @@ const App = () => {
 
     try {
       await updatePerson(id, updated);
-      const people = await getPeople();
-      setPersons(people);
       showMessage(`Updated ${updated.name}`);
     } catch (err) {
-      console.error("Failed to update");
+      showMessage(`Error, ${updated.name} not found`, "error");
     }
+    const people = await getPeople();
+    setPersons(people);
   };
 
   const handleDelete = async (id) => {
@@ -97,11 +97,11 @@ const App = () => {
           p.name.toLowerCase().includes(filter.toLowerCase()),
         );
 
-  const showMessage = (text) => {
-    setNotificationMessage(text);
+  const showMessage = (text, type = "success") => {
+    setNotificationMessage({ text, type });
     setTimeout(() => {
       setNotificationMessage(null);
-    }, 3000);
+    }, 5000);
   };
 
   return (

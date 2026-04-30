@@ -36,7 +36,6 @@ export const updatePerson = async (id, updatedPerson) => {
     const response = await axios.put(`${baseUrl}/${id}`, updatedPerson);
     return response.data;
   } catch (err) {
-    console.error("Error updating person", err);
     throw err;
   }
 };

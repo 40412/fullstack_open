@@ -1,7 +1,16 @@
-.notification {
+.success {
   color: green;
   border: 2px solid;
   border-color: green;
+  background-color: rgb(185, 185, 185);
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.error {
+  color: rgb(199, 6, 6);
+  border: 2px solid;
+  border-color: rgb(238, 59, 59);
   background-color: rgb(185, 185, 185);
   border-radius: 5px;
   margin: 10px;
