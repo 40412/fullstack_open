@@ -1,0 +1,8 @@
+.notification {
+  color: green;
+  border: 2px solid;
+  border-color: green;
+  background-color: rgb(185, 185, 185);
+  border-radius: 5px;
+  margin: 10px;
+}

@@ -8,12 +8,14 @@ import {
   deletePerson,
   savePerson,
 } from "./services/persons";
+import Notification from "./notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState(null);
 
   useEffect(() => {
     const fetchPeople = async () => {
@@ -52,6 +54,7 @@ const App = () => {
       setPersons(persons.concat(saved));
       setNewName("");
       setNewNumber("");
+      showMessage(`Added ${saved.name}`);
     } catch (err) {
       console.error("Failed to save");
     }
@@ -65,6 +68,7 @@ const App = () => {
       await updatePerson(id, updated);
       const people = await getPeople();
       setPersons(people);
+      showMessage(`Updated ${updated.name}`);
     } catch (err) {
       console.error("Failed to update");
     }
@@ -80,6 +84,7 @@ const App = () => {
       await deletePerson(id);
       const people = await getPeople();
       setPersons(people);
+      showMessage(`Deleted ${person.name}`);
     } catch (err) {
       console.error("Failed to delete");
     }
@@ -92,9 +97,17 @@ const App = () => {
           p.name.toLowerCase().includes(filter.toLowerCase()),
         );
 
+  const showMessage = (text) => {
+    setNotificationMessage(text);
+    setTimeout(() => {
+      setNotificationMessage(null);
+    }, 3000);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
 
