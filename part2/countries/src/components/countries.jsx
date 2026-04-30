@@ -1,6 +1,6 @@
 import { Country } from "./Country";
 
-export const Countries = ({ countries }) => {
+export const Countries = ({ countries, onShow }) => {
   if (countries.length > 10) {
     return <p>Too many matches, specify another filter</p>;
   }
@@ -9,7 +9,10 @@ export const Countries = ({ countries }) => {
     return (
       <>
         {countries.map((c) => (
-          <p key={c.cca3}>{c.name.common}</p>
+          <p key={c.cca3}>
+            {c.name.common}
+            <button onClick={() => onShow(c)}>Show</button>
+          </p>
         ))}
       </>
     );
