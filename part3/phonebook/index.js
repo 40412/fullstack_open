@@ -3,6 +3,8 @@ const app = express();
 
 let persons = require("./data.json");
 
+app.use(express.json());
+
 app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
@@ -26,6 +28,20 @@ app.get("/api/persons/:id", (req, res) => {
   } else {
     res.status(404).end();
   }
+});
+
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+
+  const newPerson = {
+    id: String(Math.floor(Math.random() * 1000000)),
+    name: body.name,
+    number: body.number,
+  };
+
+  persons = persons.concat(newPerson);
+
+  res.json(newPerson);
 });
 
 app.delete("/api/persons/:id", (req, res) => {
