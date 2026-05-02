@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3001/persons";
+const baseUrl = "http://localhost:3001/api/persons";
 
 // GET
 
@@ -20,7 +20,6 @@ export const getPeople = async () => {
 export const savePerson = async (newPerson) => {
   try {
     const response = await axios.post(baseUrl, newPerson);
-    console.log("saved", response.data);
     return response.data;
   } catch (err) {
     console.error("Error saving person", err);
